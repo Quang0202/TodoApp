@@ -1,62 +1,79 @@
-import React from 'react'
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native'
+import React, { useState }  from 'react'
+import { View, TouchableOpacity, Text, StyleSheet,Button,TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
-const Job =(props)=>(
-        <View style={styles.jobWrapper}>
+import Modal from 'react-native-modal';
+const Job =(props)=>{
+    const [value,onChangeText]=useState(props.text)
+    const [visible,setVisible]=useState(false);
+    let editText=()=>{
+        setVisible(false)
+        props.text={value}
+    }
+        return (<View style={styles.jobWrapper}>
             <TouchableOpacity onPress={()=>props.setChecked()}>
                 <Icon
                     name={props.checked ? "check" : "square"}
                     size={30}
                     color="#900"
-                    style={{ marginLeft: 15 }}
+                    style={{ marginLeft: 15,marginBottom:10}}
                 />
             </TouchableOpacity>
-            <View>
-                {props.checked && <View style={styles.verticalLine}></View>}
-                <Text style={styles.job}>{props.text}</Text>
-            </View>
+            <TextInput
+                style={[props.checked?styles.job2:styles.job1,styles.job]}
+                onChangeText={text=>onChangeText(text)}
+                value={value}
+                multiline={true}
+                />
             <TouchableOpacity style={styles.trash} onPress={()=>props.setDelete()}>
                 <Icon
                 name="trash"
                 size={30}
                 color="#900"
-                style={{ marginRight: 5 }}
                 />
             </TouchableOpacity>
-
         </View>
 
-)
+)}
 const styles = StyleSheet.create({
     job:{
-        paddingBottom: 20,
         flex:1,
         paddingLeft: 10,
-        marginTop: 6,
-        fontSize: 17,
-        fontWeight: 'bold',
-        color: 'white',
+        fontSize: 20,
+        marginBottom:10,
+    },
+    job2:{
+        textDecorationLine:"line-through",
+    },
+    job1:{
+        textDecorationLine: "none"
     },
     jobWrapper:{
         flexDirection:'row',
+        alignItems: 'center' ,
+        backgroundColor:"#fff",
         marginTop:'5%',
-        width:'100%',
-        alignItems: 'stretch',
-        borderColor: '#FFFFFF',
-        borderBottomWidth: 1.5,
-        minHeight: 40,
-    },
-    verticalLine: {
-        borderBottomColor: 'white',
-        borderBottomWidth: 3,
-        marginLeft: 10,
-        width: '100%',
-        position: 'absolute',
-        marginTop: 17,
+        width:"100%",
+        minHeight:60,
+        borderColor:"#D8D8D8",
+        borderRadius:1,
+        borderWidth:1,
+        shadowColor: "#000",
+        shadowOffset:{
+            width: 0,
+            height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
     },
     trash:{
         marginLeft: 'auto',
-        marginRight:5
+        marginRight:5,
+        marginBottom:10,
+    },
+    modal:{
+        backgroundColor: '#fff',
+        minHeight: 100,
     }
 })
 export default Job;

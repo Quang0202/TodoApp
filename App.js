@@ -27,42 +27,38 @@ const App = ()=> {
         )
     }
   return (
-    <View style={styles.container}>
-        <Text style={{color:"#fff",marginTop:"10%",fontSize: 16}}>Today</Text>
-{/*
-        <ImageBackground style={{ width: '100%', height: '100%', flex: 1 }} source={require('./assets/image/backgroundImage.jpg')}>
-*/}
-      <View style={styles.textInputContainer}>
-        <TextInput
-            style={styles.textInput}
-            multiline={true}
-            onChangeText={(value) => setValue(value)}
-            placeholder={'Do anything!'}
-            placeholderTextColor="white"
-            value={value}
-        />
-        <TouchableOpacity onPress={() => handleAddJob()} >
-            <Icon name="plus" size={30} color="#900" style={{ marginRight: 5 }}/>
-        </TouchableOpacity>
-      </View>
-{/*
-        </ImageBackground>
-*/}
-      <ScrollView>
-          {
-              jobs.map((job)=>(
-                  <Job
-                      text={job.text}
-                      key={job.key}
-                      checked={job.checked}
-                      setChecked={() => handleChecked(job.key)}
-                      setDelete={()=>handleDelete(job.key)}
-                  />
-              ))
+        <View style={styles.container}>
+            <ImageBackground style={{ width: '100%', height: 'auto',  alignItems: 'center',}} source={require('./assets/image/backgroundImage.jpg')}>
+            <Text style={{color:"#fff",marginTop:"10%",fontSize: 25, fontWeight: 'bold',}}>Today</Text>
+            <View style={styles.textInputContainer}>
+                <TextInput
+                    style={styles.textInput}
+                    multiline={true}
+                    onChangeText={(value) => setValue(value)}
+                    placeholder={'Do anything!'}
+                    placeholderTextColor="#D8D8D"
+                    value={value}
+                />
+            <TouchableOpacity onPress={() => handleAddJob()} >
+                <Icon name="plus" size={30} color="#900" style={{ marginRight: 5 }}/>
+            </TouchableOpacity>
+            </View>
+            </ImageBackground>
+          <ScrollView style={{backgroundColor:"#fff", marginLeft: '3%',marginRight:'3%'}}>
+              {
+                  jobs.map((job)=>(
+                      <Job
+                          text={job.text}
+                          key={job.key}
+                          checked={job.checked}
+                          setChecked={() => handleChecked(job.key)}
+                          setDelete={()=>handleDelete(job.key)}
+                      />
+                  ))
 
-          }
-      </ScrollView>
-    </View>
+              }
+          </ScrollView>
+        </View>
   );
 }
 
@@ -70,14 +66,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor:"#FA8258"
   },
     textInputContainer:{
         flexDirection:'row',
         alignItems: 'baseline',
         borderBottomWidth: 1,
         paddingRight: 10,
-        paddingBottom: 5
+        paddingBottom: 5,
     },
     textInput:{
       height:20,
@@ -85,9 +80,9 @@ const styles = StyleSheet.create({
         minHeight: '7%',
         marginTop: '5%',
         fontSize:25,
-        fontWeight: 'bold',
-        color: 'white',
+        color: '#fff',
         paddingLeft: 10
-    }
+    },
+
 });
 export default App
